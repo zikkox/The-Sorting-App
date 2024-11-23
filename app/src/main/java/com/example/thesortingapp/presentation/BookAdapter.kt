@@ -9,11 +9,16 @@ import com.example.thesortingapp.data.Book
 import com.example.thesortingapp.data.BookDiffCallback
 import com.example.thesortingapp.databinding.ItemBookBinding
 
-class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
+class BookAdapter(private val onBookClick: (Book) -> Unit) :
+    RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     private var booksList = listOf<Book>()
 
-    class BookViewHolder(private val binding: ItemBookBinding) :
+
+    class BookViewHolder(
+        private val binding: ItemBookBinding,
+        private val onBookClick: (Book) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(book: Book) {
@@ -21,6 +26,10 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
             Glide.with(binding.coverImageview.context).load(book.attributes.cover)
                 .into(binding.coverImageview)
+
+            binding.root.setOnClickListener {
+                onBookClick(book)
+            }
         }
     }
 
@@ -30,8 +39,10 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onBookClick
         )
+
     }
 
     override fun getItemCount() = booksList.size
@@ -41,7 +52,7 @@ class BookAdapter : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
     }
 
 
-    fun updateList(newBooksList: List<Book>){
+    fun updateList(newBooksList: List<Book>) {
         val diffCallback = BookDiffCallback(booksList, newBooksList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
 

@@ -11,7 +11,7 @@
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/action_homeFragment_to_detailsFragment"
+            android:id="@+id/action_home_to_detail"
             app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
@@ -20,22 +20,7 @@
         android:label="DetailsFragment"
         tools:layout="@layout/fragment_details" >
         <action
-            android:id="@+id/action_detailsFragment_to_homeFragment"
+            android:id="@+id/action_detail_to_home"
             app:destination="@id/homeFragment" />
-        <argument
-            android:name="id"
-            app:argType="string" />
-        <argument
-            android:name="cover"
-            app:argType="string" />
-        <argument
-            android:name="pages"
-            app:argType="integer" />
-        <argument
-            android:name="summary"
-            app:argType="string" />
-        <argument
-            android:name="title"
-            app:argType="string" />
     </fragment>
 </navigation>

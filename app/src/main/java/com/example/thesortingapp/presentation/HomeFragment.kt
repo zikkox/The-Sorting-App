@@ -8,6 +8,8 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import com.example.thesortingapp.data.Book
 import com.example.thesortingapp.databinding.FragmentHomeBinding
 import kotlinx.coroutines.launch
 
@@ -16,7 +18,11 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
 
-    private val adapter = BookAdapter()
+    private val adapter by lazy {
+        BookAdapter { clickedBook ->
+            onBookClicked(clickedBook)
+        }
+    }
 
     private val viewModel by viewModels<BookViewModel>()
 
@@ -45,5 +51,9 @@ class HomeFragment : Fragment() {
         viewModel.bookFlow.collect() { booksList ->
             adapter.updateList(booksList)
         }
+    }
+
+    private fun onBookClicked(book: Book) {
+        findNavController().navigate(HomeFragmentDirections.actionHomeToDetail())
     }
 }
