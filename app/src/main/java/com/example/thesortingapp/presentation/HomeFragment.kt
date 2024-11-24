@@ -54,6 +54,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onBookClicked(book: Book) {
-        findNavController().navigate(HomeFragmentDirections.actionHomeToDetail())
+        val action = HomeFragmentDirections.actionHomeToDetail(book)
+        findNavController().navigate(action)
     }
 }

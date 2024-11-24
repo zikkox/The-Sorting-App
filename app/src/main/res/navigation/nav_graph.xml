@@ -22,5 +22,8 @@
         <action
             android:id="@+id/action_detail_to_home"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="book"
+            app:argType="com.example.thesortingapp.data.Book" />
     </fragment>
 </navigation>
